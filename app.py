@@ -33,7 +33,7 @@ def upload_image():
             io.BytesIO(buffer),
             mimetype='image/png',
             as_attachment=True,
-            attachment_filename='imagen_interpolada.png'
+            download_name='imagen_interpolada.png'
         )
     else:
         return "No se ha cargado ninguna imagen", 400

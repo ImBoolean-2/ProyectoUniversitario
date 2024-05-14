@@ -1,4 +1,4 @@
-# interpolation.py
+# interpolacion.py
 import numpy as np
 
 def calcular_coeficientes(puntos):
@@ -10,8 +10,12 @@ def calcular_coeficientes(puntos):
     return coeficientes
 
 def interpolar(imagen, coeficientes):
-    # Asumiendo que 'imagen' es un array de NumPy y 'coeficientes' es retornado por 'calcular_coeficientes'
-    altura, anchura = imagen.shape
+    # Verifica si la imagen tiene un canal de color (es decir, es en escala de grises)
+    if len(imagen.shape) == 2:
+        altura, anchura = imagen.shape
+    else:
+        altura, anchura, _ = imagen.shape  # Ignora el tercer valor (número de canales)
+
     imagen_interpolada = np.zeros_like(imagen)
     # Aplica la interpolación a cada píxel
     for i in range(altura):
