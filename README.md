@@ -23,13 +23,14 @@ La interpolación polinómica es una herramienta poderosa en el procesamiento de
 
 ## Autores
 - Juan Carlos Sergio Tijero Yupanqui
--
+- Valeriano Alarcon Valentino Samir
 -
 -
 -
 
 ## Agradecimientos
-Agradezco a mi gato por cada dia que lo veo cada dia que me mantengo cuerdo y sigo con vida.
+Agradezco a mi gato por cada dia que lo veo cada dia que me mantengo cuerdo y sigo con vida. 
+thanks
 
 ## Referencias
 -
