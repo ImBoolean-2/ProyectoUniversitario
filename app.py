@@ -4,7 +4,7 @@ import cv2
 import io
 from src.interpolacion import calcular_coeficientes, interpolar
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/')
 def index():
