@@ -2,8 +2,13 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
     e.preventDefault();
     var formData = new FormData();
     var imageFile = document.getElementById('image-input').files[0];
-    formData.append('image', imageFile);
+    
+    if (!imageFile.value) {
+        alert('Por favor, selecciona una imagen antes de presionar el botón.');
+    }
 
+    formData.append('image', imageFile);
+    
     fetch('/upload', {
         method: 'POST',
         body: formData

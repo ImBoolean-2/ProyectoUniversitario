@@ -29,8 +29,23 @@ aside {
 
 form#upload-form {
     display: flex;
-    gap: 15px;
+    margin-top: 100px;
     flex-direction: column;
+}
+
+h2#title {
+    margin-top: -525px;
+}
+
+form#Buttons-form {
+    display: flex;
+    gap: 15px;
+    box-sizing: border-box;
+    flex-direction: column;
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color: rgb(125, 223, 240);
 }
 
 div {
@@ -48,8 +63,4 @@ div {
     margin-top: 20px;
     max-width: 100%;
     max-height: 95vh;
-}
-
-#other-buttons {
-    margin: 500px; 
 }

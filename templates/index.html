@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Proyecto Interpolacion</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/static/style.css">
-<title>Interpolación Polinómica de Imágenes</title>
+    <meta charset="UTF-8">
+    <title>Proyecto Interpolacion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <section>
         <aside>
-            <h1>Interpolación Polinómica de Imágenes</h1>
+            <h2 id="title">Interpolación Polinómica de Imágenes</h2>
             <form id="upload-form">
                 <input type="file" id="image-input" name="image" accept="image/*" required>
             </form>
-            <div>
+            <form id="Buttons-form">
                 <button type="submit">Procesar Imagen</button>
                 <button type="submit">Quitar Fondo</button>
                 <button type="submit">Ampliar Imagen</button>
                 <button type="submit">Guardar</button>
-            </div>
+            </form>
         </aside>
         <div>
             <img id="result-image" src="" alt="Imagen Interpolada" hidden>
