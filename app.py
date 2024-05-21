@@ -1,8 +1,8 @@
-from flask import Flask, request, send_file, render_template
-import numpy as np
-import cv2
-import io
+import os
 from src.interpolacion import calcular_coeficientes, interpolar
+from flask import Flask, request, render_template, url_for
+from datetime import datetime
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -15,26 +15,22 @@ def index():
 def upload_image():
     file = request.files['image']
     if file:
-        # Convierte la imagen cargada en un array de NumPy
-        imagen = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        # Genera un nombre de archivo basado en la fecha y hora actual
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        filename = secure_filename(f"{timestamp}_{file.filename}")
         
-        # Aquí deberías definir tus puntos de control para la interpolación
-        puntos_de_control = [(0, 0), (255, 255)] # Ejemplo simple
+        # Define la ruta de la carpeta donde se guardarán las imágenes
+        folder_path = os.path.join(app.root_path, 'static/images')
         
-        # Calcula los coeficientes de interpolación
-        coeficientes = calcular_coeficientes(puntos_de_control)
+        # Crea la carpeta si no existe
+        os.makedirs(folder_path, exist_ok=True)
         
-        # Aplica la interpolación a la imagen
-        imagen_interpolada = interpolar(imagen, coeficientes)
+        # Guarda la imagen en la carpeta especificada
+        file.save(os.path.join(folder_path, filename))
         
-        # Convierte la imagen interpolada de vuelta a un formato que se pueda enviar
-        _, buffer = cv2.imencode('.png', imagen_interpolada)
-        return send_file(
-            io.BytesIO(buffer),
-            mimetype='image/png',
-            as_attachment=True,
-            download_name='imagen_interpolada.png'
-        )
+        # Envía la ruta de la imagen al template HTML
+        return render_template('index.html', 
+                               uploaded_image_url=url_for('static', filename=f'images/{filename}'))
     else:
         return "No se ha cargado ninguna imagen", 400
 
