@@ -10,9 +10,8 @@
     <section>
         <aside>
             <h2 id="title">Interpolación Polinómica de Imágenes</h2>
-            <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+            <form id="upload-form">
                 <input type="file" id="image-input" name="image" accept="image/*" required>
-                <input type="submit" value="Upload">
             </form>
             <form id="Buttons-form">
                 <button type="submit">Procesar Imagen</button>
@@ -21,31 +20,8 @@
                 <button type="submit">Guardar</button>
             </form>
         </aside>
-        <div style="float: right;">
-            <div id="tabs">
-                <ul>
-                    <li><a href="#tab-1">Imagen Subida</a></li>
-                    <li><a href="#tab-2">Sin fondo</a></li>
-                    <li><a href="#tab-3">Ampliada</a></li>
-                    <li><a href="#tab-4">Interpolada</a></li>
-                </ul>
-                <div id="tab-1">
-                    {% if uploaded_image_url %}
-                        <img src="{{ uploaded_image_url }}" alt="Imagen subida">
-                    {% else %}
-                        <p>No se ha subido ninguna imagen.</p>
-                    {% endif %}
-                </div>
-                <div id="tab-2">
-                    <!-- Contenido del Tab 2 -->
-                </div>
-                <div id="tab-3">
-                    <!-- Contenido del Tab 3 -->
-                </div>
-                <div id="tab-4">
-                    <!-- Contenido del Tab 4 -->
-                </div>
-            </div>
+        <div>
+            <img id="result-image" src="" alt="Imagen Interpolada" hidden>
         </div>
     </section>
 <script src="/static/script.js"></script>
