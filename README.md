@@ -9,14 +9,14 @@ La interpolación polinómica es una herramienta poderosa en el procesamiento de
 ## Instalación
 - Clonas
 - abre terminal en la carpeta del proyecto
-- Ejecuta el comando `flask run` o `python app.py` para iniciar el servidor
+- Ejecuta el comando flask run o python app.py para iniciar el servidor
 
 ## Uso
-- Abre tu navegador web y ve a la dirección `http://127.0.0.1:5000/` o la que se indique en la terminal.
+- Abre tu navegador web y ve a la dirección http://127.0.0.1:5000/ o la que se indique en la terminal.
 - Deberías ver la página de inicio que creaste con el formulario para cargar imágenes.
 
-## Bugs
-- Fix - Advertencia de subir imagen antes de procesar
+## Contribuir
+-
 
 ## Licencia
 -
@@ -24,14 +24,13 @@ La interpolación polinómica es una herramienta poderosa en el procesamiento de
 ## Autores
 - Juan Carlos Sergio Tijero Yupanqui
 - Valeriano Alarcon Valentino Samir
-- Flores Huamani Ronald
-- Víctor ALejandro Chávez Cometivos
-- Fabricio Franco Ñaupari Chircca
+-
+-
+-
 
 ## Agradecimientos
 Agradezco a mi gato por cada dia que lo veo cada dia que me mantengo cuerdo y sigo con vida. 
 thanks
-quiero una novia o un novio/novie test webhook x discord
 
 ## Referencias
-- 
+-

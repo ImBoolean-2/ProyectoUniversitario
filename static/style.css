@@ -29,29 +29,14 @@ aside {
 
 form#upload-form {
     display: flex;
-    margin-top: 100px;
-    flex-direction: column;
-}
-
-h2#title {
-    margin-top: -525px;
-}
-
-form#Buttons-form {
-    display: flex;
     gap: 15px;
-    box-sizing: border-box;
     flex-direction: column;
-    width: 30%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    background-color: rgb(125, 223, 240);
 }
 
 div {
     width: 70%;
     height: 100vh;
-    margin: 10px;
+    margin: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
