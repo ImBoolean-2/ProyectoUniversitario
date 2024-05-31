@@ -1,5 +1,7 @@
-# interpolacion.py
+import cv2
 import numpy as np
+from flask import send_file
+import io
 
 def calcular_coeficientes(puntos):
     # Asumiendo que 'puntos' es una lista de tuplas (x, y)
@@ -24,3 +26,22 @@ def interpolar(imagen, coeficientes):
             # Por ejemplo, podrías usar np.polyval para evaluar el polinomio
             imagen_interpolada[i, j] = np.polyval(coeficientes, imagen[i, j])
     return imagen_interpolada
+
+def interpolar_imagen(file, puntos_de_control):
+    # Convierte la imagen cargada en un array de NumPy
+    imagen = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+    
+    # Calcula los coeficientes de interpolación
+    coeficientes = calcular_coeficientes(puntos_de_control)
+    
+    # Aplica la interpolación a la imagen
+    imagen_interpolada = interpolar(imagen, coeficientes)
+    
+    # Convierte la imagen interpolada de vuelta a un formato que se pueda enviar
+    _, buffer = cv2.imencode('.png', imagen_interpolada)
+    return send_file(
+        io.BytesIO(buffer),
+        mimetype='image/png',
+        as_attachment=True,
+        download_name='imagen_interpolada.png'
+    )

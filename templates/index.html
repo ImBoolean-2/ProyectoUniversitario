@@ -4,19 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/static/style.css">
-<title>Interpolación Polinómica de Imágenes</title>
+<title id="title">Interpolación Polinómica de Imágenes</title>
 </head>
 <body>
     <section>
         <aside>
-            <h1>Interpolación Polinómica de Imágenes</h1>
+            <header>
+                <h1 id="title">Interpolación Polinómica de Imágenes</h1>
+            </header>
             <form id="upload-form">
                 <input type="file" id="image-input" name="image" accept="image/*" required>
                 <button type="submit">Procesar Imagen</button>
             </form>
         </aside>
-        <div>
-            <img id="result-image" src="" alt="Imagen Interpolada" hidden>
+        <div id="progress-container" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 50px; background-color: #f3f3f3;">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 20%;">
+                <div id="progress-percent" style="width: 100%; text-align: center;"></div>
+                <div id="progress-bar" style="height: 24px; width: 0; background-color: #4caf50;"></div>
+            </div>
+        </div>
+            <img id="result-image" src="" alt="Imagen Interpolada" style="display: none;">
         </div>
     </section>
 <script src="/static/script.js"></script>
