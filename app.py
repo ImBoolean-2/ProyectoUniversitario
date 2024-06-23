@@ -1,34 +1,36 @@
-from flask import Flask, request, send_file, render_template
-import numpy as np
-import cv2
-import io
+from flask import Flask, send_file, render_template, request
 from src.interpolacion import calcular_coeficientes, interpolar
+from numpy import frombuffer, uint8
+from cv2 import imdecode, imencode, IMREAD_UNCHANGED
+from io import BytesIO
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # Renderiza la página de inicio con el formulario de carga
     return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
     file = request.files['image']
     if file:
+        content_type = file.content_type
+        if content_type == 'image/gif' or content_type.startswith('video/'):
+            return "Por favor, suba la imagen en un formato soportado. Los formatos .gif y de video no son admitidos.", 402 # Verificar el tipo MIME para bloquear .gif y formatos de video
         try:
-            imagen = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+            imagen = imdecode(frombuffer(file.read(), uint8), IMREAD_UNCHANGED)
             coeficientes = calcular_coeficientes(imagen)
             imagen_interpolada = interpolar(imagen, coeficientes)
 
-            _, buffer = cv2.imencode('.png', imagen_interpolada)
+            _, buffer = imencode('.png', imagen_interpolada)
             return send_file(
-                io.BytesIO(buffer),
+                BytesIO(buffer),
                 mimetype='image/png',
                 as_attachment=True,
                 download_name='imagen_interpolada.png'
             )
         except ValueError as e:
-            return f"{str(e)}. Esta imagen no tiene los puntos de control suficientes para ser interpolada", 400 # Devuelve el mensaje de error con un código de estado HTTP 400
+            return f"{str(e)}. Esta imagen no tiene los puntos de control suficientes para ser interpolada", 401
     else:
         return "No se proporcionó una imagen.", 400
 

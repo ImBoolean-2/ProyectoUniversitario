@@ -1,10 +1,10 @@
-import os
-import datetime
+from os import path
+from datetime import datetime
 from numpy import array
-from cv2 import imread, resize, INTER_AREA, normalize, medianBlur, cvtColor, COLOR_BGR2RGB, NORM_MINMAX, CV_8U
 from PIL import Image, ImageFilter
+from cv2 import imread, resize, INTER_AREA, normalize, medianBlur, cvtColor, COLOR_BGR2RGB, NORM_MINMAX, CV_8U
 
-image_path = 'C:\\Users\\Val\\Documents\\OIPtest.jpg'
+image_path = 'C:\\Users\\Val\\Documents\\OIPtest.jpg' ## Cambiar y agregar al metodo upload de app.py
 
 image = imread(image_path)
 
@@ -22,12 +22,12 @@ for _ in range(5):
     pil_image = pil_image.filter(ImageFilter.SHARPEN)
     image = array(pil_image)
 
-current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-base_name = os.path.basename(image_path)
+current_time = datetime.now().strftime("%Y%m%d%H%M%S")
+base_name = path.basename(image_path)
 new_name = current_time + "_" + base_name
 
 output_folder = './resources/reescaladas_imgs/'
-output_path = os.path.join(output_folder, new_name)
+output_path = path.join(output_folder, new_name)
 
 pil_image = Image.fromarray(image)
 pil_image.save(output_path)

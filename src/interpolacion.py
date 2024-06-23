@@ -1,5 +1,5 @@
 # interpolacion.py
-import numpy as np
+from numpy import array, polyfit, polyval, zeros_like
 from cv2 import cvtColor, ORB_create, COLOR_BGR2GRAY
 
 def calcular_coeficientes(imagen):
@@ -13,12 +13,12 @@ def calcular_coeficientes(imagen):
 
     puntos_de_control = obtener_puntos_de_control(imagen)
     
-    x = np.array([punto[0] for punto in puntos_de_control])
-    y = np.array([punto[1] for punto in puntos_de_control])
+    x = array([punto[0] for punto in puntos_de_control])
+    y = array([punto[1] for punto in puntos_de_control])
     
     # Verificar que hay suficientes puntos para calcular un polinomio
     if len(puntos_de_control) > 1:
-        coeficientes = np.polyfit(x, y, min(len(puntos_de_control) - 1, 3))  # Limitar el grado para evitar errores Calcula los coeficientes del polinomio
+        coeficientes = polyfit(x, y, min(len(puntos_de_control) - 1, 3))  # Limitar el grado para evitar errores Calcula los coeficientes del polinomio
     else:
         raise ValueError("No se encontraron suficientes puntos de control para calcular coeficientes.")
     
@@ -26,9 +26,9 @@ def calcular_coeficientes(imagen):
 
 def interpolar(imagen, coeficientes):
     if len(imagen.shape) == 2: # Verifica si la imagen tiene un canal de color (es decir, es en escala de grises)
-        imagen_interpolada = np.polyval(coeficientes, imagen) # Aplica la interpolación directamente a toda la imagen
+        imagen_interpolada = polyval(coeficientes, imagen) # Aplica la interpolación directamente a toda la imagen
     else:
-        imagen_interpolada = np.zeros_like(imagen) # Si la imagen es a color, aplica la interpolación a cada canal por separado
+        imagen_interpolada = zeros_like(imagen) # Si la imagen es a color, aplica la interpolación a cada canal por separado
         for canal in range(imagen.shape[2]):
-            imagen_interpolada[:, :, canal] = np.polyval(coeficientes, imagen[:, :, canal])
+            imagen_interpolada[:, :, canal] = polyval(coeficientes, imagen[:, :, canal])
     return imagen_interpolada
