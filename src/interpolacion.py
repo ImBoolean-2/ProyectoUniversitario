@@ -1,26 +1,34 @@
 # interpolacion.py
 import numpy as np
+from cv2 import cvtColor, ORB_create, COLOR_BGR2GRAY
 
-def calcular_coeficientes(puntos):
-    # Asumiendo que 'puntos' es una lista de tuplas (x, y)
-    x = np.array([punto[0] for punto in puntos])
-    y = np.array([punto[1] for punto in puntos])
-    # Calcula los coeficientes del polinomio
-    coeficientes = np.polyfit(x, y, len(puntos) - 1)
+def calcular_coeficientes(imagen):
+    def obtener_puntos_de_control(imagen):
+        imagen_gris = cvtColor(imagen, COLOR_BGR2GRAY) # Convertir a escala de grises para la detección de características
+        orb = ORB_create() # Inicializar ORB
+        puntos_clave = orb.detect(imagen_gris, None) # Detectar puntos clave
+        puntos_de_control = [(int(pk.pt[0]), int(pk.pt[1])) for pk in puntos_clave] # Convertir puntos clave a una lista de tuplas (x, y)
+        
+        return puntos_de_control
+
+    puntos_de_control = obtener_puntos_de_control(imagen)
+    
+    x = np.array([punto[0] for punto in puntos_de_control])
+    y = np.array([punto[1] for punto in puntos_de_control])
+    
+    # Verificar que hay suficientes puntos para calcular un polinomio
+    if len(puntos_de_control) > 1:
+        coeficientes = np.polyfit(x, y, min(len(puntos_de_control) - 1, 3))  # Limitar el grado para evitar errores Calcula los coeficientes del polinomio
+    else:
+        raise ValueError("No se encontraron suficientes puntos de control para calcular coeficientes.")
+    
     return coeficientes
 
 def interpolar(imagen, coeficientes):
-    # Verifica si la imagen tiene un canal de color (es decir, es en escala de grises)
-    if len(imagen.shape) == 2:
-        altura, anchura = imagen.shape
+    if len(imagen.shape) == 2: # Verifica si la imagen tiene un canal de color (es decir, es en escala de grises)
+        imagen_interpolada = np.polyval(coeficientes, imagen) # Aplica la interpolación directamente a toda la imagen
     else:
-        altura, anchura, _ = imagen.shape  # Ignora el tercer valor (número de canales)
-
-    imagen_interpolada = np.zeros_like(imagen)
-    # Aplica la interpolación a cada píxel
-    for i in range(altura):
-        for j in range(anchura):
-            # Aquí aplicarías la interpolación usando los coeficientes
-            # Por ejemplo, podrías usar np.polyval para evaluar el polinomio
-            imagen_interpolada[i, j] = np.polyval(coeficientes, imagen[i, j])
+        imagen_interpolada = np.zeros_like(imagen) # Si la imagen es a color, aplica la interpolación a cada canal por separado
+        for canal in range(imagen.shape[2]):
+            imagen_interpolada[:, :, canal] = np.polyval(coeficientes, imagen[:, :, canal])
     return imagen_interpolada

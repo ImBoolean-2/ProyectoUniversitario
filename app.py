@@ -15,28 +15,22 @@ def index():
 def upload_image():
     file = request.files['image']
     if file:
-        # Convierte la imagen cargada en un array de NumPy
-        imagen = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
-        
-        # Aquí deberías definir tus puntos de control para la interpolación
-        puntos_de_control = [(0, 0), (255, 255)] # Ejemplo simple
-        
-        # Calcula los coeficientes de interpolación
-        coeficientes = calcular_coeficientes(puntos_de_control)
-        
-        # Aplica la interpolación a la imagen
-        imagen_interpolada = interpolar(imagen, coeficientes)
-        
-        # Convierte la imagen interpolada de vuelta a un formato que se pueda enviar
-        _, buffer = cv2.imencode('.png', imagen_interpolada)
-        return send_file(
-            io.BytesIO(buffer),
-            mimetype='image/png',
-            as_attachment=True,
-            download_name='imagen_interpolada.png'
-        )
+        try:
+            imagen = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+            coeficientes = calcular_coeficientes(imagen)
+            imagen_interpolada = interpolar(imagen, coeficientes)
+
+            _, buffer = cv2.imencode('.png', imagen_interpolada)
+            return send_file(
+                io.BytesIO(buffer),
+                mimetype='image/png',
+                as_attachment=True,
+                download_name='imagen_interpolada.png'
+            )
+        except ValueError as e:
+            return f"{str(e)}. Esta imagen no tiene los puntos de control suficientes para ser interpolada", 400 # Devuelve el mensaje de error con un código de estado HTTP 400
     else:
-        return "No se ha cargado ninguna imagen", 400
+        return "No se proporcionó una imagen.", 400
 
 if __name__ == '__main__':
     app.run(debug=True)
