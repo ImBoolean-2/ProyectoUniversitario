@@ -12,7 +12,6 @@ def calcular_coeficientes(imagen):
         return puntos_de_control
 
     puntos_de_control = obtener_puntos_de_control(imagen)
-    
     x = array([punto[0] for punto in puntos_de_control])
     y = array([punto[1] for punto in puntos_de_control])
     
@@ -31,4 +30,5 @@ def interpolar(imagen, coeficientes):
         imagen_interpolada = zeros_like(imagen) # Si la imagen es a color, aplica la interpolación a cada canal por separado
         for canal in range(imagen.shape[2]):
             imagen_interpolada[:, :, canal] = polyval(coeficientes, imagen[:, :, canal])
+            
     return imagen_interpolada

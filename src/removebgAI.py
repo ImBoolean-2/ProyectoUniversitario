@@ -19,6 +19,8 @@ def remove_background(input_image_path, output_folder, api_key):
     image = Image.open(no_bg_image_path)
     image.save(output_path)
     print("Eliminación de fondo de imagen completada. Imagen guardada en:", output_path)
+    
+    return image
 
 # Cargar las variables de entorno del archivo .env
 load_dotenv('ApiKEY.env')
