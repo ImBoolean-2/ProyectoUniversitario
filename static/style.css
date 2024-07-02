@@ -59,6 +59,6 @@ div {
     background: white;
 }
 
-#bg-sct{
-
+.ordenar {
+    display: flex;
 }
