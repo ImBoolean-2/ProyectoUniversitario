@@ -2,6 +2,12 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0px;
+
+    background: rgb(12,8,84);
+background: -moz-linear-gradient(135deg, rgba(12,8,84,1) 0%, rgba(48,202,214,1) 35%, rgba(255,136,0,1) 100%);
+background: -webkit-linear-gradient(135deg, rgba(12,8,84,1) 0%, rgba(48,202,214,1) 35%, rgba(255,136,0,1) 100%);
+background: linear-gradient(135deg, rgba(12,8,84,1) 0%, rgba(48,202,214,1) 35%, rgba(255,136,0,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0c0854",endColorstr="#ff8800",GradientType=1);
 }
 
 section {
@@ -9,6 +15,16 @@ section {
     margin: 0px;
     display: flex;
     align-items: center;
+}
+
+div#floating-form {
+    position: fixed;
+    width: 20vw;
+    background: gray;
+    bottom: 20px;
+    padding: 20px;
+    border-radius: 25px;
+    left: 20px;
 }
 
 aside {
@@ -34,10 +50,14 @@ div {
     height: auto; /* Maintain aspect ratio */
 }
 
-#result-image {
+.result-image {
     display: block;
     max-width: 80%; /* Responsive image scaling */
     max-height: 80vh;
     margin: auto; /* Center the image */
     height: auto; /* Maintain aspect ratio */
+}
+
+#bg-sct{
+    
 }

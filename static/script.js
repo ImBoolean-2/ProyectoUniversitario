@@ -8,10 +8,26 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.blob())
-    .then(imageBlob => {
-        var imageUrl = URL.createObjectURL(imageBlob);
-        document.getElementById('result-image').src = imageUrl;
-        document.getElementById('result-image').hidden = false;
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            if (data.interpolated_image_url) {
+                document.getElementById('interpolated-image').src = data.interpolated_image_url;
+                document.getElementById('interpolated-image').hidden = false;
+            }
+            if (data.noise_reduced_image_url) {
+                document.getElementById('noise-reduced-image').src = data.noise_reduced_image_url;
+                document.getElementById('noise-reduced-image').hidden = false;
+            }
+            if (data.focused_image_url) {
+                document.getElementById('focused-image').src = data.focused_image_url;
+                document.getElementById('focused-image').hidden = false;
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 });

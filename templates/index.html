@@ -7,18 +7,32 @@
     <title>Interpolación Polinómica de Imágenes</title>
 </head>
 <body>
-    <section>
-        <aside>
-            <h1>Interpolación Polinómica de Imágenes</h1>
-            <form id="upload-form">
+
+<div id="floating-form">
+    <h1>Interpolación Polinómica de Imágenes</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
                 <input type="file" id="image-input" name="image" accept="image/*" required>
-                <button type="submit">Procesar Imagen</button>
+                <button type="submit">Interpolar Imagen</button>
             </form>
-        </aside>
+</div>
+
+    <section id="bg-sct">
         <div>
-            <img id="result-image" src="" alt="Imagen Interpolada" hidden>
+            <div id="interpolated-result">
+                <h2>Imagen Interpolada</h2>
+                <img id="interpolated-image" class="result-image" hidden>
+            </div>
+            <div id="noise-reduced-result">
+                <h2>Imagen con Ruido Reducido</h2>
+                <img id="noise-reduced-image" class="result-image" hidden>
+            </div>
+            <div id="focused-result">
+                <h2>Imagen Enfocada y Refinada</h2>
+                <img id="focused-image" class="result-image" hidden>
+            </div>
         </div>
     </section>
+
 <script src="/static/script.js"></script>
 </body>
 </html>
