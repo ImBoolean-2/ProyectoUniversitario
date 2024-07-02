@@ -25,6 +25,14 @@ document.getElementById('upload-form').addEventListener('submit', function(e) {
                 document.getElementById('focused-image').src = data.focused_image_url;
                 document.getElementById('focused-image').hidden = false;
             }
+            if (data.rescaled_image_url) {
+                document.getElementById('rescaled-image').src = data.rescaled_image_url;
+                document.getElementById('rescaled-image').hidden = false;
+            }
+            if (data.remove_background_image_url) {
+                document.getElementById('remove-background-image').src = data.remove_background_image_url;
+                document.getElementById('remove-background-image').hidden = false;
+            }
         }
     })
     .catch(error => {
